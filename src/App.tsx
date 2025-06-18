@@ -11,7 +11,8 @@ import TestimonialsCarousel from './components/TestimonialsCarousel';
 import CollectionPage from './components/CollectionPage';
 import ProductPage from './components/ProductPage';
 import CartSidebar from './components/CartSidebar';
-import Footer from './components/Footer';
+import Footer from './components/Footer;
+import NotificationSystem from './components/NotificationSystem'
 
 const AppContent = () => {
   const dispatch = useAppDispatch();
@@ -190,6 +191,7 @@ const AppContent = () => {
       {renderPage()}
       <CartSidebar />
        <Footer/>
+       <NotificationSystem/>
     </div>
   );
 };
