@@ -11,6 +11,7 @@ import TestimonialsCarousel from './components/TestimonialsCarousel';
 import CollectionPage from './components/CollectionPage';
 import ProductPage from './components/ProductPage';
 import CartSidebar from './components/CartSidebar';
+import Footer from './components/Footer';
 
 const AppContent = () => {
   const dispatch = useAppDispatch();
@@ -188,6 +189,7 @@ const AppContent = () => {
       {/* Page Render */}
       {renderPage()}
       <CartSidebar />
+       <Footer/>
     </div>
   );
 };
