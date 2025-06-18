@@ -1,3 +1,4 @@
+
 import { useState, useMemo } from 'react';
 import { Filter, Grid, List, Star, ShoppingCart } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '../hooks/useRedux';
@@ -277,7 +278,7 @@ const CollectionPage = () => {
           <div className="flex-1">
             {viewMode === 'grid' ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredProducts.map((product) => (
+                {/* {filteredProducts.map((product) => (
                   <div
                     key={product.id}
                     className="group bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
@@ -338,11 +339,79 @@ const CollectionPage = () => {
                       </div>
                     </div>
                   </div>
-                ))}
+                ))} */} 
+                <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-4 sm:px-6 md:px-8">
+  {filteredProducts.map((product) => (
+    <div
+      key={product.id}
+      className="group bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
+    >
+      <div className="relative overflow-hidden rounded-t-xl">
+        <img
+          src={product.images[0]}
+          alt={product.title}
+          className="w-full h-40 sm:h-48 md:h-52 object-cover group-hover:scale-110 transition-transform duration-500"
+          loading="lazy"
+        />
+        {product.compareAtPrice && (
+          <div className="absolute top-2 left-2 bg-accent-500 text-white px-2 py-0.5 rounded-full text-[10px] sm:text-xs font-semibold">
+            SALE
+          </div>
+        )}
+        <button
+          onClick={() => handleAddToCart(product)}
+          className="absolute top-2 right-2 p-1.5 bg-white/90 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-white"
+        >
+          <ShoppingCart className="h-4 w-4 text-secondary-600" />
+        </button>
+      </div>
+
+      <div className="p-3 sm:p-4">
+        <h3 className="font-semibold text-secondary-900 mb-1 line-clamp-2 text-sm sm:text-base">
+          {product.title}
+        </h3>
+
+        <div className="flex items-center mb-1 sm:mb-2">
+          <div className="flex text-yellow-400">
+            {[...Array(5)].map((_, i) => (
+              <Star key={i} className="h-3 w-3 sm:h-4 sm:w-4 fill-current" />
+            ))}
+          </div>
+          <span className="text-xs sm:text-sm text-secondary-500 ml-1 sm:ml-2">(4.9)</span>
+        </div>
+
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-1">
+            <span className="text-base sm:text-lg font-bold text-secondary-900">
+              {formatPrice(product.price)}
+            </span>
+            {product.compareAtPrice && (
+              <span className="text-xs sm:text-sm text-secondary-500 line-through">
+                {formatPrice(product.compareAtPrice)}
+              </span>
+            )}
+          </div>
+
+          <span
+            className={`text-[10px] sm:text-xs px-2 py-0.5 rounded-full ${
+              product.available
+                ? 'bg-primary-100 text-primary-700'
+                : 'bg-red-100 text-red-700'
+            }`}
+          >
+            {product.available ? 'In Stock' : 'Out of Stock'}
+          </span>
+        </div>
+      </div>
+    </div>
+  ))}
+</div>
+
+                
               </div>
             ) : (
               <div className="space-y-4">
-                {filteredProducts.map((product) => (
+                {/* {filteredProducts.map((product) => (
                   <div
                     key={product.id}
                     className="bg-white rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300 p-6"
@@ -407,7 +476,80 @@ const CollectionPage = () => {
                       </div>
                     </div>
                   </div>
-                ))}
+                ))} */}
+                {filteredProducts.map((product) => (
+  <div
+    key={product.id}
+    className="bg-white rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300 p-4 md:p-6"
+  >
+    <div className="flex flex-col md:flex-row md:space-x-6 space-y-4 md:space-y-0">
+      {/* Image Section */}
+      <div className="w-full md:w-32 h-48 md:h-32 flex-shrink-0">
+        <img
+          src={product.images[0]}
+          alt={product.title}
+          className="w-full h-full object-cover rounded-lg"
+          loading="lazy"
+        />
+      </div>
+
+      {/* Info Section */}
+      <div className="flex-1">
+        <h3 className="text-lg md:text-xl font-semibold text-secondary-900 mb-2">
+          {product.title}
+        </h3>
+
+        <p className="text-secondary-600 mb-3 line-clamp-2 text-sm md:text-base">
+          {product.description}
+        </p>
+
+        <div className="flex items-center mb-3">
+          <div className="flex text-yellow-400">
+            {[...Array(5)].map((_, i) => (
+              <Star key={i} className="h-4 w-4 fill-current" />
+            ))}
+          </div>
+          <span className="text-sm text-secondary-500 ml-2">(4.9) • 248 reviews</span>
+        </div>
+
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
+          {/* Price */}
+          <div className="flex items-center space-x-2">
+            <span className="text-xl md:text-2xl font-bold text-secondary-900">
+              {formatPrice(product.price)}
+            </span>
+            {product.compareAtPrice && (
+              <span className="text-base md:text-lg text-secondary-500 line-through">
+                {formatPrice(product.compareAtPrice)}
+              </span>
+            )}
+          </div>
+
+          {/* Stock & Button */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
+            <span
+              className={`text-sm px-3 py-1 rounded-full ${
+                product.available
+                  ? 'bg-primary-100 text-primary-700'
+                  : 'bg-red-100 text-red-700'
+              }`}
+            >
+              {product.available ? 'In Stock' : 'Out of Stock'}
+            </span>
+            <button
+              onClick={() => handleAddToCart(product)}
+              className="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors duration-200 flex items-center"
+            >
+              <ShoppingCart className="mr-2 h-4 w-4" />
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+))}
+
               </div>
             )}
 
